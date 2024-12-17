@@ -487,7 +487,7 @@ namespace lab5
                         Console.WriteLine("Строка будет обработана по следующему принципу: перевернуть каждое предложение, заканчивающееся символом ’!’.\n");
                         sentence = ReadString("Введите строку: "); //ввод строки
                         result = ProcessString(sentence);
-                        if (result == "" || result == " " || result == "\t") //если строка пустая
+                        if (Regex.IsMatch(result, @"^\s*$")) //если строка пустая
                             Console.WriteLine("\nСтрока пустая\n");
                         else
                             Console.WriteLine($"\nПолученный результат: {result}\n"); //вывод обработанной строки
