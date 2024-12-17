@@ -117,13 +117,13 @@ namespace lab5
         {
             int[,] matrix = new int[0, 0]; //инициализация матрицы
             int answer;
-            int readAnswer;
             PrintMenuMatrix();
             do
             {
                 answer = ReadNumber("Введите номер операции: ", "Ошибка при вводе пункта меню.", 1, 4);
                 PrintMenuMatrix();
                 //организация меню
+                int readAnswer;
                 switch (answer)
                 {
                     case 1:
@@ -286,13 +286,12 @@ namespace lab5
 
         #endregion
 
-        //работа с рваным массивом
+        //работа со рваным массивом
         #region WorkJaggedArray
         static void WorkJaggedArray(ref bool isJaggedArrayFormed)
         {
             int[][] jaggedArray = []; //инициализация рваного массива
             int answer;
-            int readAnswer;
             PrintMenuJaggedArray();
 
             do
@@ -308,7 +307,7 @@ namespace lab5
                         //выбор способа формирования матрицы
                         Console.WriteLine("\n1. Заполнить строки массива генератором случайных чисел");
                         Console.WriteLine("2. Заполнить строки массива ручным вводом\n");
-                        readAnswer = ReadNumber("Введите номер операции: ", "Ошибка при вводе пункта меню.", 1, 2);
+                        var readAnswer = ReadNumber("Введите номер операции: ", "Ошибка при вводе пункта меню.", 1, 2);
                         PrintMenuJaggedArray();
                         jaggedArray = CreateJaggedArray(rows, readAnswer); //формирование рваного массива
                         PrintMenuJaggedArray();
@@ -331,13 +330,13 @@ namespace lab5
                         }
                         PrintJaggedArray(isJaggedArrayFormed, jaggedArray);
                         //ввод числа, которое должно содержаться в удаляемой строке
-                        int number = ReadNumber($"Введите число, которое должно содержаться в удаляемой строке: ", "Ошибка при вводе целого числа.");
-                        int rowNumber = FindRow(jaggedArray, number); //поиск строки с заданным числом
+                        int desiredNumber = ReadNumber($"Введите число, которое должно содержаться в удаляемой строке: ", "Ошибка при вводе целого числа.");
+                        int rowNumber = FindRow(jaggedArray, desiredNumber); //поиск строки с заданным числом
                         if (rowNumber == -1) //если строки с числом не найдено
                         {
                             PrintMenuJaggedArray();
                             PrintJaggedArray(isJaggedArrayFormed, jaggedArray);
-                            Console.WriteLine($"Строка с числом {number} в массиве не найдена\n");
+                            Console.WriteLine($"Строка с числом {desiredNumber} в массиве не найдена\n");
                             break;
                         }
                         if (jaggedArray.Length == 1) //если строка в массиве одна
@@ -356,7 +355,7 @@ namespace lab5
                         }
                         break;
                     case 4:
-                        isJaggedArrayFormed = false; //выход из меню работы с рваным массивом, опускаем флаг
+                        isJaggedArrayFormed = false; //выход из меню работы со рваным массивом, опускаем флаг
                         break;
                 }
             } while (answer != 4);
@@ -423,12 +422,12 @@ namespace lab5
 
         //поиск строки с заданным элементом
         #region FindRow
-        static int FindRow(int[][] jaggedArray, int number)
+        static int FindRow(int[][] jaggedArray, int desiredNumber)
         {
             int rowNumber = -1;
             for (int i = 0; i < jaggedArray.Length; i++)
             {
-                rowNumber = Array.IndexOf(jaggedArray[i], number) != -1 ? i : -1;
+                rowNumber = Array.IndexOf(jaggedArray[i], desiredNumber) != -1 ? i : -1;
                 if (rowNumber != -1)
                     break;
             }
@@ -487,10 +486,9 @@ namespace lab5
                         Console.WriteLine("Строка будет обработана по следующему принципу: перевернуть каждое предложение, заканчивающееся символом ’!’.\n");
                         sentence = ReadString("Введите строку: "); //ввод строки
                         result = ProcessString(sentence);
-                        if (Regex.IsMatch(result, @"^\s*$")) //если строка пустая
-                            Console.WriteLine("\nСтрока пустая\n");
-                        else
-                            Console.WriteLine($"\nПолученный результат: {result}\n"); //вывод обработанной строки
+                        Console.WriteLine(Regex.IsMatch(result, @"^\s*$")
+                            ? "\nСтрока пустая\n" //если строка пустая
+                            : $"\nПолученный результат: {result}\n"); //вывод обработанной строки
                         break;
                     case 2:
                         sentence = "В лесу родилась елочка! В лесу она росла. Зимой и летом стройная, зеленая была!"; //тестовая строка
@@ -518,8 +516,8 @@ namespace lab5
         }
         #endregion
 
-        //переворот строки
-        #region ReverseString
+        //переворот предложения
+        #region ReverseSentence
         static string ReverseSentence(Match match)
         {
             //получаем предложение из найденных совпадений
@@ -545,8 +543,8 @@ namespace lab5
             string reversed = string.Join("", words).Trim();
 
             //делаем первую букву заглавной
-            reversed = Char.ToUpper(reversed[0]) + reversed.Substring(1, reversed.Length - 1);
-            return reversed + "! "; //возвращаем полученное предложение и добавляем восклицательный знак
+            reversed = Char.ToUpper(reversed[0]) + reversed.Substring(1, reversed.Length - 1) + "! ";
+            return reversed; //возвращаем полученное предложение
         }
         #endregion
 
