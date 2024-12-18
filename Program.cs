@@ -141,7 +141,7 @@ namespace lab5
                         isMatrixFormed = true; //матрица создана
                         break;
                     case 2:
-                        PrintMatrix(isMatrixFormed, matrix); //печать матрицы
+                        PrintMatrix(matrix, isMatrixFormed); //печать матрицы
                         break;
                     case 3:
                         if (!isMatrixFormed) //если до этой операции массив не был сформирован
@@ -162,7 +162,7 @@ namespace lab5
                         }
                         else
                         {
-                            PrintMatrix(isMatrixFormed,matrix);
+                            PrintMatrix(matrix);
                             numberColumns = ReadNumber($"Введите количество добавляемых столбцов (от 1 до {25 - matrix.GetLength(1)}): ", "Ошибка при вводе количества столбцов.", 1, 25 - matrix.GetLength(1));
                         }
                         //выбор способа формирования столбцов
@@ -172,7 +172,7 @@ namespace lab5
                         PrintMenuMatrix();
                         matrix = AddColumnsMatrix(numberColumns, readAnswer, matrix); //добавление столбцов в матрицу
                         PrintMenuMatrix();
-                        PrintMatrix(isMatrixFormed, matrix); //печать матрицы
+                        PrintMatrix(matrix); //печать матрицы
                         Console.WriteLine("Столбцы были успешно добавлены\n");
                         break;
                     case 4:
@@ -215,7 +215,7 @@ namespace lab5
 
         //печать матрицы
         #region PrintMatrix
-        static void PrintMatrix(bool isMatrixFormed, int[,] matrix)
+        static void PrintMatrix(int[,] matrix, bool isMatrixFormed = true)
         {
             if (!isMatrixFormed) //если матрица не сформирована
             {
@@ -315,7 +315,7 @@ namespace lab5
                         isJaggedArrayFormed = true; //рваный массив создан
                         break;
                     case 2:
-                        PrintJaggedArray(isJaggedArrayFormed, jaggedArray); //печать рваного массива
+                        PrintJaggedArray(jaggedArray, isJaggedArrayFormed); //печать рваного массива
                         break;
                     case 3:
                         if (!isJaggedArrayFormed) //если массив не сформирован
@@ -328,14 +328,14 @@ namespace lab5
                             Console.WriteLine("Рваный массив пустой\n");
                             break;
                         }
-                        PrintJaggedArray(isJaggedArrayFormed, jaggedArray);
+                        PrintJaggedArray(jaggedArray);
                         //ввод числа, которое должно содержаться в удаляемой строке
                         int desiredNumber = ReadNumber($"Введите число, которое должно содержаться в удаляемой строке: ", "Ошибка при вводе целого числа.");
                         int rowNumber = FindRow(jaggedArray, desiredNumber); //поиск строки с заданным числом
                         if (rowNumber == -1) //если строки с числом не найдено
                         {
                             PrintMenuJaggedArray();
-                            PrintJaggedArray(isJaggedArrayFormed, jaggedArray);
+                            PrintJaggedArray(jaggedArray);
                             Console.WriteLine($"Строка с числом {desiredNumber} в массиве не найдена\n");
                             break;
                         }
@@ -343,14 +343,14 @@ namespace lab5
                         {
                             jaggedArray = [];
                             PrintMenuJaggedArray();
-                            PrintJaggedArray(isJaggedArrayFormed, jaggedArray);
+                            PrintJaggedArray(jaggedArray);
                             Console.WriteLine("Строка с номером 1 была успешно удалена\n");
                         }
                         else
                         {
                             jaggedArray = DeleteRow(jaggedArray,rowNumber); //удаление строки
                             PrintMenuJaggedArray();
-                            PrintJaggedArray(isJaggedArrayFormed, jaggedArray);
+                            PrintJaggedArray(jaggedArray);
                             Console.WriteLine($"Строка с номером {rowNumber + 1} была успешно удалена\n");
                         }
                         break;
@@ -398,7 +398,7 @@ namespace lab5
 
         //печать рваного массива
         #region PrintJaggedArray
-        static void PrintJaggedArray(bool isJaggedArrayFormed, int[][] jaggedArray)
+        static void PrintJaggedArray(int[][] jaggedArray, bool isJaggedArrayFormed = true)
         {
             if (!isJaggedArrayFormed) //если рваный массив не был сформирован
             {
