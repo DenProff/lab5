@@ -486,7 +486,7 @@ namespace lab5
                         Console.WriteLine("Строка будет обработана по следующему принципу: перевернуть каждое предложение, заканчивающееся символом ’!’.\n");
                         sentence = ReadString("Введите строку: "); //ввод строки
                         result = ProcessString(sentence);
-                        bool isStringValid = Regex.IsMatch(sentence, @"\w+.*(?<=\w)[\.\!\?]$") &&
+                        bool isStringValid = Regex.IsMatch(sentence, @"^[A-ZА-ЯЁ]\w*.*(?<=\w)[\.\!\?]$") &&
                                        !Regex.IsMatch(sentence, @"(?<=\p{P})\p{P}");
                         if (!isStringValid && !Regex.IsMatch(result, @"^\s*$"))
                             Console.WriteLine("\nНекорректный ввод строки. Строка состоит из слов, разделенных пробелами (пробелов может быть несколько) и знаков препинания (,;:).\nВ строке может быть несколько предложений, в конце каждого предложения стоит один знак препинания (.!?).\n");
