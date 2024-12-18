@@ -67,7 +67,7 @@ namespace lab5
             } while (!isConvert);
             return number;
         }
-        #endregion
+        #endregion ReadNumber
 
         //ввод числа с заданным диапазоном
         #region ReadNumber
@@ -98,7 +98,7 @@ namespace lab5
 
             return number;
         }
-        #endregion
+        #endregion ReadNumber
 
         //ввод строки
         #region ReadString
@@ -109,7 +109,7 @@ namespace lab5
 
             return sentence;
         }
-        #endregion
+        #endregion ReadString
 
         //работа с матрицей
         #region WorkMatrix
@@ -211,7 +211,7 @@ namespace lab5
             }
             return matrix;
         }
-        #endregion
+        #endregion CreateMatrix
 
         //печать матрицы
         #region PrintMatrix
@@ -230,7 +230,7 @@ namespace lab5
             }
             Console.WriteLine();
         }
-        #endregion
+        #endregion PrintMatrix
 
         //добавление столбцов
         #region AddColumnsMatrix
@@ -270,7 +270,7 @@ namespace lab5
             }
             return extraMatrix;
         }
-        #endregion
+        #endregion AddColumnsMatrix
 
         //печать меню для двумерного массива
         #region PrintMenuMatrix
@@ -282,9 +282,9 @@ namespace lab5
             Console.WriteLine("3. Добавить столбцы в конец двумерного массива");
             Console.WriteLine("4. Вернуться назад\n");
         }
-        #endregion
+        #endregion PrintMenuMatrix
 
-        #endregion
+        #endregion WorkMatrix
 
         //работа со рваным массивом
         #region WorkJaggedArray
@@ -394,7 +394,7 @@ namespace lab5
             }
             return jaggedArray;
         }
-        #endregion
+        #endregion CreateJaggedArray
 
         //печать рваного массива
         #region PrintJaggedArray
@@ -418,7 +418,7 @@ namespace lab5
             }
             Console.WriteLine();
         }
-        #endregion
+        #endregion PrintJaggedArray
 
         //поиск строки с заданным элементом
         #region FindRow
@@ -433,7 +433,7 @@ namespace lab5
             }
             return rowNumber;
         }
-        #endregion
+        #endregion FindRow
 
         //удаление строки
         #region DeleteRow
@@ -452,7 +452,7 @@ namespace lab5
             }
             return extraJaggedArray;
         }
-        #endregion
+        #endregion DeleteRow
 
         //печать меню для рваного массива
         #region PrintMenuJaggedArray
@@ -464,9 +464,9 @@ namespace lab5
             Console.WriteLine("3. Удалить первую строку, в которой встречается заданное число");
             Console.WriteLine("4. Вернуться назад\n");
         }
-        #endregion
+        #endregion PrintMenuJaggedArray
 
-        #endregion
+        #endregion WorkJaggedArray
 
         //работа со строкой
         #region WorkString
@@ -514,14 +514,13 @@ namespace lab5
         {
             input = Regex.Replace(input, @" {2,}", " "); //удаление повторяющихся пробелов
             input = Regex.Replace(input, @"\t{2,}", "\t"); //удаление повторяющихся пробелов
-            input = Regex.Replace(input, @"(\w+)([,:!])(\w+)", "$1$2 $3"); //удаление повторяющихся знаков препинания
             //регулярное выражение для поиска предложений, заканчивающихся на '!'
             string pattern = @"\b[A-ZА-ЯЁ][A-ZА-ЯЁa-zа-яё,:; ]*(?<!,|:|;)!(?:\s|$)";
             //заменяем найденные предложения перевёрнутыми
             string result = Regex.Replace(input, pattern, ReverseSentence);
             return result;
         }
-        #endregion
+        #endregion ProcessString
 
         //переворот предложения
         #region ReverseSentence
@@ -553,7 +552,7 @@ namespace lab5
             reversed = Char.ToUpper(reversed[0]) + reversed.Substring(1, reversed.Length - 1) + "! ";
             return reversed; //возвращаем полученное предложение
         }
-        #endregion
+        #endregion ReverseSentence
 
         //печать меню для строки
         #region PrintMenuString
@@ -564,9 +563,9 @@ namespace lab5
             Console.WriteLine("2. Использовать заранее сформированную строку");
             Console.WriteLine("3. Вернуться назад\n");
         }
-        #endregion
+        #endregion PrintMenuString
 
-        #endregion
+        #endregion WorkString
 
         //печать меню
         #region PrintMenu
@@ -578,6 +577,6 @@ namespace lab5
             Console.WriteLine("3. Работа со строками");
             Console.WriteLine("4. Выход\n");
         }
-        #endregion
+        #endregion PrintMenu
     }
 }
