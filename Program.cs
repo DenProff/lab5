@@ -71,7 +71,7 @@ namespace lab5
 
         //ввод числа с заданным диапазоном
         #region ReadNumber
-        static int ReadNumber(string messageFirst, string messageSecond, int leftBorder, int rightBorder)
+        static int ReadNumber(string messageFirst, string messageSecond, int leftBorder, int rightBorder = int.MaxValue)
         {
             int number = 0;
             bool isConvert = false;
