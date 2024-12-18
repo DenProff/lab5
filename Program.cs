@@ -485,14 +485,17 @@ namespace lab5
                     case 1:
                         Console.WriteLine("Строка будет обработана по следующему принципу: перевернуть каждое предложение, заканчивающееся символом ’!’.\n");
                         sentence = ReadString("Введите строку: "); //ввод строки
-                        result = ProcessString(sentence);
+                        sentence = Regex.Replace(sentence, @" {2,}", " "); //удаление повторяющихся пробелов
+                        sentence = Regex.Replace(sentence, @"\t{2,}", "\t"); //удаление повторяющихся табуляций
                         bool isStringValid = Regex.IsMatch(sentence, @"^[A-ZА-ЯЁ]\w*.*(?<=\w)[\.\!\?]$") &&
                                        !Regex.IsMatch(sentence, @"(?<=\p{P})\p{P}");
-                        if (!isStringValid && !Regex.IsMatch(result, @"^\s*$"))
-                            Console.WriteLine("\nНекорректный ввод строки. Строка состоит из слов, разделенных пробелами (пробелов может быть несколько) и знаков препинания (,;:).\nВ строке может быть несколько предложений, в конце каждого предложения стоит один знак препинания (.!?).\n");
+                        if (!isStringValid && !Regex.IsMatch(sentence, @"^\s*$"))
+                            Console.WriteLine("\nНекорректный ввод строки. Строка состоит из слов, разделенных пробелами (пробелов может быть несколько) и знаков препинания (,;:).\n" +
+                                              "В строке может быть несколько предложений, в конце каждого предложения стоит один знак препинания (.!?).\n");
                         else
                         {
-                            Console.WriteLine(Regex.IsMatch(result, @"^\s*$")
+                            result = ProcessString(sentence);
+                            Console.WriteLine(Regex.IsMatch(sentence, @"^\s*$")
                                 ? "\nСтрока пуста\n"
                                 : $"\nПолученный результат: {result}\n");
                         }
@@ -512,8 +515,6 @@ namespace lab5
         #region ProcessString
         static string ProcessString(string input)
         {
-            input = Regex.Replace(input, @" {2,}", " "); //удаление повторяющихся пробелов
-            input = Regex.Replace(input, @"\t{2,}", "\t"); //удаление повторяющихся пробелов
             //регулярное выражение для поиска предложений, заканчивающихся на '!'
             string pattern = @"\b[A-ZА-ЯЁ][A-ZА-ЯЁa-zа-яё,:; ]*(?<!,|:|;)!(?:\s|$)";
             //заменяем найденные предложения перевёрнутыми
